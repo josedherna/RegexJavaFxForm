@@ -2,10 +2,14 @@ package org.csc311.regexjavafxform;
 
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+import java.io.IOException;
 import java.util.regex.*;
 
 /**
@@ -45,6 +49,25 @@ public class FormController {
         emailField.textProperty().addListener(textFieldListener);
         dobField.textProperty().addListener(textFieldListener);
         zipcodeField.textProperty().addListener(textFieldListener);
+    }
+
+    /**
+     * Switches scene from registration screen to the landing page.
+     *
+     * @throws IOException when method fails to load fxml file.
+     */
+    @FXML
+    private void signUp() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(StartApplication.class.getResource("landingpage-view.fxml"));
+        Parent root = fxmlLoader.load();
+        Scene scene = addButton.getScene();
+        scene.setRoot(root);
+        firstNameField.textProperty().removeListener(textFieldListener);
+        lastNameField.textProperty().removeListener(textFieldListener);
+        emailField.textProperty().removeListener(textFieldListener);
+        dobField.textProperty().removeListener(textFieldListener);
+        zipcodeField.textProperty().removeListener(textFieldListener);
+
     }
 
     private final ChangeListener<String> textFieldListener = (_, _, _) -> {
